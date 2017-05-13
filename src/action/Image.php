@@ -77,6 +77,8 @@ class Image implements Action_Strategy
         $this->_action      = $action + self::$_default_action;
         $this->_action_path = $this->_getActionPath();
         $this->_quality     = self::MAX_QUALITY;
+
+        $this->_cleanWidthAndHeight();
     }
 
     /**
@@ -109,6 +111,21 @@ class Image implements Action_Strategy
     }
 
     /**
+     * Cleans up the width and height values.
+     *
+     * When the width or height value is zero we assume that the original width
+     * or height of the image should be used.
+     */
+    private function _cleanWidthAndHeight() {
+        list($original_width, $original_height) = getimagesize($this->_path);
+
+        $this->_action[self::WIDTH_KEY] = ($this->_action[self::WIDTH_KEY] !== 0) ?
+            $this->_action[self::WIDTH_KEY] : $original_width;
+        $this->_action[self::HEIGHT_KEY] = ($this->_action[self::HEIGHT_KEY] !== 0) ?
+            $this->_action[self::HEIGHT_KEY] : $original_height;
+    }
+
+    /**
      * Manipulate the image.
      *
      * Acts on the image given the action information, formats it accordingly,
@@ -118,12 +135,86 @@ class Image implements Action_Strategy
      *               another image, and the name of the resulting action.
      */
     public function act() {
-
+        $this->_manipulate();
 
         return [
             self::PATH_KEY => $this->_action_path,
             self::NAME_KEY => $this->_action[self::NAME_KEY]
         ];
+    }
+
+    /**
+     * Manipulates the image based off of the action given.
+     *
+     * Converts, Compresses, and Formats the image according to the action information
+     * given about its conversion and compression / formatting after conversion.
+     */
+    private function _manipulate() {
+        $this->_convert();
+        $this->_format();
+        $this->_compress();
+    }
+
+    /**
+     * Converts the image given the current action.
+     *
+     * Alters the given image by width, height, padding, and keep aspect ratio. If
+     * the keep aspect ratio is not null then it contains the image inside of the
+     * given width and height, otherwise it covers the width and height with the image
+     * and crops to that width and height.
+     */
+    private function _convert() {
+        if (!is_null($this->_action[self::KEEP_ASPECT_RATIO_KEY]) &&
+            !is_null($this->_action[self::PADDING_KEY])) {
+            $this->_contain();
+        } else {
+            $this->_cover();
+        }
+    }
+
+    /**
+     * Manipulates the image to fill in the entire width and height of an image.
+     *
+     * Utilizes imagick to create a thumbnail image from the given width and height
+     * of the action. This allows the entire space of the width and hight to contain
+     * the image, with no filler.
+     */
+    private function _cover() {
+        $imagick = new \Imagick($this->_path);
+        $imagick->setImageBackgroundColor('transparent');
+        $imagick->cropThumbnailImage(
+            $this->_action[self::WIDTH_KEY], 
+            $this->_action[self::HEIGHT_KEY]
+        );
+
+        $imagick->writeImage($this->_action_path);
+    }
+
+    /**
+     * Applies padding to an image to fill its width and height.
+     *
+     * Creates a thumbnail image from the given 
+     */
+    private function _contain() {
+        $imagick = new \Imagick($this->_path);
+        $imagick->setImageBackgroundColor('#000'); // black
+
+        if (!$this->_action[self::KEEP_ASPECT_RATIO_KEY]) {
+            $imagick->thumbnailImage(
+                $this->_action[self::WIDTH_KEY], 
+                $this->_action[self::HEIGHT_KEY],
+                true, 
+                $this->_action[self::PADDING_KEY]
+            );
+        } else {
+            $imagick->scaleImage(
+                $this->_action[self::WIDTH_KEY], 
+                $this->_action[self::HEIGHT_KEY],
+                true
+            );
+        }
+
+        $imagick->writeImage($this->_action_path);
     }
 
     /**
@@ -162,5 +253,23 @@ class Image implements Action_Strategy
         }
 
         return $compression;
+    }
+
+    /**
+     * Goes to compress the image.
+     *
+     * Compresses the Image if it is over the MAX_SIZE of bytes of an image. It
+     * calls the Manipulate function again and reduces the quality to get a smaller
+     * image.
+     */
+    private function _compress() {
+        clearstatcache();
+        if (filesize($this->_final_path) > self::DEFAULT_IMAGE_MAX_SIZE) {
+
+            $this->_quality -= 10;
+            if ($this->_quality > 10) {
+                $this->_manipulate();
+            }
+        }
     }
 }
