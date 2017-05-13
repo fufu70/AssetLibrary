@@ -1,0 +1,26 @@
+{
+    "name": "milf/asset-library",
+    "type": "library",
+    "license": "MIT",
+    "repositories": [
+        { 
+          "type": "vcs", 
+          "url": "https://github.com/fufu70/ReflectionClass.git"
+        },
+        { 
+          "type": "vcs", 
+          "url": "https://github.com/fufu70/FileClass.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.1.0",
+        "yiisoft/yii": "1.1.*",
+        "fufu70/reflection-class": "dev-master",
+        "fufu70/file-class": "dev-master"
+    },
+    "autoload": {
+		"psr-4": {
+			"Common\\": "src/"
+		}
+	}
+}
