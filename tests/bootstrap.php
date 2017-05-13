@@ -8,8 +8,8 @@ require_once($yiit);
 // require all src files
 $files = array_merge(
     glob(dirname(__FILE__).'/../src/*.php'),
-    glob(dirname(__FILE__).'/../src/Action/*.php'),
-    glob(dirname(__FILE__).'/../src/File/*.php'),
+    glob(dirname(__FILE__).'/../src/action/*.php'),
+    glob(dirname(__FILE__).'/../src/file/*.php'),
     glob(dirname(__FILE__) . '/../vendor/fufu70/reflection-class/src/*.php'),
     glob(dirname(__FILE__) . '/../vendor/fufu70/file-class/src/*.php'),
     glob(dirname(__FILE__) . '/../vendor/fufu70/file-class/src/file/*.php')
