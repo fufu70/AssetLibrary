@@ -96,6 +96,12 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         $default_image_file = self::TEST_DIRECTORY . "/usable.png";
         file_put_contents($default_image_file, file_get_contents("http://placehold.it/350x150"));
 
+        $contain_aspect_true_file = self::TEST_DIRECTORY . "/contain_aspect_true.png";
+        file_put_contents(
+            $contain_aspect_true_file, 
+            file_get_contents("http://placehold.it/1920x1080")
+        );
+
         $not_valid_file  = self::TEST_DIRECTORY . "/not_valid.txt";
         file_put_contents($not_valid_file, "This file is simply a text file(filename)");
 
@@ -153,13 +159,6 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                         Action_Image::HEIGHT_KEY            => 1080,
                         Action_Image::KEEP_ASPECT_RATIO_KEY => false,
                         Action_Image::PADDING_KEY           => true
-                    ],
-                    [
-                        Action_Image::NAME_KEY              => 
-                            "default_image_contain_aspect_true",
-                        Action_Image::WIDTH_KEY             => 1920,
-                        Action_Image::HEIGHT_KEY            => 1080,
-                        Action_Image::KEEP_ASPECT_RATIO_KEY => true
                     ]
                 ],
                 [
@@ -169,6 +168,23 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                         self::COMPARISON_DIRECTORY . "/default_image_contain.png",
                     "default_image_contain_aspect_true" =>
                         self::COMPARISON_DIRECTORY . "/default_image_contain_aspect_true.png",
+                ],
+                "" // I dont expect an exception
+            ],
+            [
+                $contain_aspect_true_file,
+                [],
+                [
+                    [
+                        Action_Image::NAME_KEY              =>  "contain_aspect_true",
+                        Action_Image::WIDTH_KEY             => 1920,
+                        Action_Image::HEIGHT_KEY            => 1080,
+                        Action_Image::KEEP_ASPECT_RATIO_KEY => true
+                    ]
+                ],
+                [
+                    "contain_aspect_true" =>
+                        self::COMPARISON_DIRECTORY . "/contain_aspect_true.png",
                 ],
                 "" // I dont expect an exception
             ],
