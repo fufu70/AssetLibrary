@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Contains the FileTest class.
+ * Contains the Image_Test class.
  * 
- * @package Common\Test
+ * @package Asset\Test\File
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
  */
 
-namespace Asset\Test\Image;
+namespace Asset\Test\File;
 
 use Asset\Action\Image as Action_Image;
 use Asset\File\Image as File_Image;
@@ -17,17 +17,17 @@ use Common\File\NotSafeException;
 use Common\File\NotValidException;
 
 /**
- * FileTest class. A PHPUnit Test case class.
+ * Image_Test class. A PHPUnit Test case class.
  *
- * Tests info, usable, valid, and safe methods of the Common\File class.
+ * Confirms the usage of the File_Image class.
  * 
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
 
-class File_Test extends \PHPUnit_Framework_TestCase
+class Image_Test extends \PHPUnit_Framework_TestCase
 {
 
-    const TEST_DIRECTORY = 'Info_Test';
+    const TEST_DIRECTORY = 'File_Image_Test';
 
     /**
      * Sets up a basic environment with the testing directory

@@ -24,7 +24,7 @@
     <filter>
         <whitelist>
             <directory suffix=".php">../src</directory>
-            <directory suffix=".php">../src/asset</directory>
+            <directory suffix=".php">../src/action</directory>
             <directory suffix=".php">../src/file</directory>
         </whitelist>
     </filter>

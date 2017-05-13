@@ -62,7 +62,7 @@ class Image implements File_Strategy
     ) {
         File::usable($image_path, $valid_types); // does not throw an exception.
 
-        $this->_path = $image_path;
+        $this->_path    = $image_path;
         $this->_actions = $actions;
     }
 
