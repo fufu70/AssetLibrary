@@ -99,6 +99,16 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         $not_valid_file  = self::TEST_DIRECTORY . "/not_valid.txt";
         file_put_contents($not_valid_file, "This file is simply a text file(filename)");
 
+        // test a high quality image to get as compressed as possible.
+        // replace image if url is not accessible.
+        $big_file  = self::TEST_DIRECTORY . "/big_file.jpg";
+        file_put_contents(
+            $big_file, 
+            file_get_contents(
+                "https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-497846.jpg"
+            )
+        );
+
         return [
             [
                 $default_image_file,
@@ -162,6 +172,23 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                 ],
                 "" // I dont expect an exception
             ],
+            [
+
+                $big_file,
+                [],
+                [
+                    [
+                        Action_Image::NAME_KEY   => "big_file",
+                        Action_Image::WIDTH_KEY  => 0,
+                        Action_Image::HEIGHT_KEY => 0
+                    ]
+                ],
+                [
+                    "big_file" => 
+                        self::COMPARISON_DIRECTORY . "/big_file.png",
+                ],
+                "" // I dont expect an exception
+            ]
         ];
     }
 

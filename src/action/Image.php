@@ -40,7 +40,7 @@ class Image implements Action_Strategy
     const HEIGHT_DEFALT             = 1000;
     const WIDTH_DEFAULT             = 1000;
     const KEEP_ASPECT_RATIO_DEFAULT = null;
-    const PADDING_DEFAULT           = null;
+    const PADDING_DEFAULT           = true;
 
     private $_action;
     private $_action_path;
@@ -88,7 +88,7 @@ class Image implements Action_Strategy
      * file, the current timestamp of the machine, and a random number between 0 - 1000.
      * This allows the final path to be unique. After the path is decided it then
      * tries to create that path image by touching it.
-     * 
+     *
      * @return string The location of the file where the actions are applied.
      */
     private function _getActionPath() {
@@ -130,7 +130,7 @@ class Image implements Action_Strategy
      *
      * Acts on the image given the action information, formats it accordingly,
      * and compresses it so as to limit its maximum size.
-     * 
+     *
      * @return array Contains the location of the result of the action, its 
      *               another image, and the name of the resulting action.
      */
