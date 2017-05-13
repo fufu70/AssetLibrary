@@ -62,7 +62,7 @@ class Image implements Action_Strategy
      * @param  array  $action     The action itself, what to do on the image
      * @return Image              An instance of itself.
      */
-    public function forge($image_path = "", array $action = []) {
+    public static function forge($image_path = "", array $action = []) {
         return new self($image_path, $action);
     }
 
@@ -264,8 +264,7 @@ class Image implements Action_Strategy
      */
     private function _compress() {
         clearstatcache();
-        if (filesize($this->_final_path) > self::DEFAULT_IMAGE_MAX_SIZE) {
-
+        if (filesize($this->_action_path) > self::MAX_SIZE) {
             $this->_quality -= 10;
             if ($this->_quality > 10) {
                 $this->_manipulate();

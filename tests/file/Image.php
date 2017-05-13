@@ -28,6 +28,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
 {
 
     const TEST_DIRECTORY = 'File_Image_Test';
+    const COMPARISON_DIRECTORY = 'test_comparison';
 
     /**
      * Sets up a basic environment with the testing directory
@@ -65,6 +66,10 @@ class Image_Test extends \PHPUnit_Framework_TestCase
     {
         try {
             system("rm -rf ".escapeshellarg(current(explode('/', self::TEST_DIRECTORY))));
+        } catch(\Exception $e) {}
+
+        try {
+            system("rm -rf ".escapeshellarg(current(explode('/', Action_Image::ROOT_DIR))));
         } catch(\Exception $e) {}
     }
 
@@ -123,6 +128,21 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                 [],
                 NotValidException::FILE_NOT_VALID
             ],
+            [
+                $default_image_file,
+                [],
+                [
+                    [
+                        Action_Image::NAME_KEY   => "default_image",
+                        Action_Image::WIDTH_KEY  => 1920,
+                        Action_Image::HEIGHT_KEY => 1080
+                    ]
+                ],
+                [
+                    "default_image" => self::COMPARISON_DIRECTORY . "/default_image.png"
+                ],
+                "" // I dont expect an exception
+            ],
         ];
     }
 
@@ -162,7 +182,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
             foreach ($results as $result) {
                 $this->assertFileEquals(
                     $result[Action_Image::PATH_KEY], 
-                    $expected_results[$results[Action_Image::NAME_KEY]]
+                    $expected_results[$result[Action_Image::NAME_KEY]]
                 );
             }
         } catch (\Exception $e) {

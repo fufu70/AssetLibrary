@@ -76,7 +76,7 @@ class Image implements File_Strategy
         $image_results = [];
 
         foreach ($this->_actions as $action) {
-            $image_results[] = Image_Action::forge($this->_path, $action);
+            $image_results[] = Image_Action::forge($this->_path, $action)->act();
         }
 
         return $image_results;
