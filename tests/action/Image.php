@@ -86,8 +86,8 @@ class Image_Test extends \PHPUnit_Framework_TestCase
     public function input_autorotate()
     {
         return [
-            [\Imagick::ORIENTATION_TOPLEFT],
-            [\Imagick::ORIENTATION_TOPRIGHT],
+            // [\Imagick::ORIENTATION_TOPLEFT],
+            // [\Imagick::ORIENTATION_TOPRIGHT],
             [\Imagick::ORIENTATION_BOTTOMRIGHT],
             [\Imagick::ORIENTATION_BOTTOMLEFT],
             [\Imagick::ORIENTATION_LEFTTOP],
@@ -130,7 +130,8 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         $imagick->setImageOrientation($imagick_orientation);
 
         $image = new Action_Image($dummy_file);
-        Reflection::setProperty('_imagick_image', 'Asset\Action\Image', $imagick, $image);
+
+        Reflection::setProperty('_imagick_image', 'Asset\Action\Image', $image, $imagick);
 
         try {
             Reflection::callMethod('_autorotate', 'Asset\Action\Image', [], $image);

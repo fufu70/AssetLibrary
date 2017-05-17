@@ -177,9 +177,11 @@ class Image implements ActionStrategy
         $this->_imagick_image->setImageFormat("png");
         $this->_imagick_image->setImageCompressionQuality($this->_quality);
     }
-    
+
     /**
      * Auto orientate the image to the proper size.
+     *
+     * Depending on the current rotation of the image, change the 
      */
     private function _autorotate()
     {
