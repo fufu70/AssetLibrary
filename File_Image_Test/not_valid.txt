@@ -1,1 +1,0 @@
-This file is simply a text file(filename)

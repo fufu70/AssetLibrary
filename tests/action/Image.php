@@ -86,8 +86,8 @@ class Image_Test extends \PHPUnit_Framework_TestCase
     public function input_autorotate()
     {
         return [
-            // [\Imagick::ORIENTATION_TOPLEFT],
-            // [\Imagick::ORIENTATION_TOPRIGHT],
+            [\Imagick::ORIENTATION_TOPLEFT],
+            [\Imagick::ORIENTATION_TOPRIGHT],
             [\Imagick::ORIENTATION_BOTTOMRIGHT],
             [\Imagick::ORIENTATION_BOTTOMLEFT],
             [\Imagick::ORIENTATION_LEFTTOP],
