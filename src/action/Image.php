@@ -259,7 +259,11 @@ class Image implements ActionStrategy
     /**
      * Applies padding to an image to fill its width and height.
      *
-     * Creates a thumbnail image from the given
+     * Creates a thumbnail image from the given image by placing it
+     * in the center and reducing the width and height to contain the
+     * image so that nothing is cropeped. It adds padding to the width 
+     * and height if desired to create a fit for the requested width and
+     * height.
      */
     private function _contain()
     {
