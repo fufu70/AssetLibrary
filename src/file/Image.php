@@ -68,7 +68,7 @@ class Image implements FileStrategy
 
     /**
      * Acts on the given actions and returns the result.
-     * 
+     *
      * Goes through the list of actions and runs through each action to generate
      * a file.
      *
