@@ -128,9 +128,9 @@ class Image_Test extends \PHPUnit_Framework_TestCase
 
         $imagick = new \Imagick(realpath($dummy_file));
         $imagick->setImageOrientation($imagick_orientation);
-        $imagick->writeImage();
 
         $image = new Action_Image($dummy_file);
+        Reflection::setProperty('_imagick_image', 'Asset\Action\Image', $imagick, $image);
 
         try {
             Reflection::callMethod('_autorotate', 'Asset\Action\Image', [], $image);
