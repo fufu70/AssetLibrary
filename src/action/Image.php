@@ -166,6 +166,19 @@ class Image implements ActionStrategy
     }
 
     /**
+     * Formats the image into a png.
+     *
+     * Creates a png from the current image and tries to keep its current alpha
+     * value.
+     */
+    private function _format()
+    {
+        $this->_imagick_image->stripImage(); // Get rid of all EXIF data
+        $this->_imagick_image->setImageFormat("png");
+        $this->_imagick_image->setImageCompressionQuality($this->_quality);
+    }
+    
+    /**
      * Auto orientate the image to the proper size.
      */
     private function _autorotate()
@@ -265,19 +278,6 @@ class Image implements ActionStrategy
         }
 
         $this->_imagick_image->writeImage($this->_action_path);
-    }
-
-    /**
-     * Formats the image into a png.
-     *
-     * Creates a png from the current image and tries to keep its current alpha
-     * value.
-     */
-    private function _format()
-    {
-        $this->_imagick_image->stripImage(); // if you want to get rid of all EXIF data
-        $this->_imagick_image->setImageFormat("png");
-        $this->_imagick_image->setImageCompressionQuality($this->_quality);
     }
 
     /**
