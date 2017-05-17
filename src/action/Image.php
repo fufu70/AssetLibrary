@@ -133,7 +133,7 @@ class Image implements Action_Strategy
      * Acts on the image given the action information, formats it accordingly,
      * and compresses it so as to limit its maximum size.
      *
-     * @return array Contains the location of the result of the action, its 
+     * @return array Contains the location of the result of the action, its
      *               another image, and the name of the resulting action.
      */
     public function act() {
@@ -162,7 +162,7 @@ class Image implements Action_Strategy
      * Auto orientate the image to the proper size.
      */
     private function _autorotate() {
-        switch ($this->_imagick_image->getImageOrientation())  {
+        switch ($this->_imagick_image->getImageOrientation()) {
             case \Imagick::ORIENTATION_TOPLEFT:
                 break;
             case \Imagick::ORIENTATION_TOPRIGHT:
@@ -223,7 +223,7 @@ class Image implements Action_Strategy
     private function _cover() {
         $this->_imagick_image->setImageBackgroundColor('transparent');
         $this->_imagick_image->cropThumbnailImage(
-            $this->_action[self::WIDTH_KEY], 
+            $this->_action[self::WIDTH_KEY],
             $this->_action[self::HEIGHT_KEY]
         );
 
@@ -240,14 +240,14 @@ class Image implements Action_Strategy
 
         if (!$this->_action[self::KEEP_ASPECT_RATIO_KEY]) {
             $this->_imagick_image->thumbnailImage(
-                $this->_action[self::WIDTH_KEY], 
+                $this->_action[self::WIDTH_KEY],
                 $this->_action[self::HEIGHT_KEY],
-                true, 
+                true,
                 $this->_action[self::PADDING_KEY]
             );
         } else {
             $this->_imagick_image->scaleImage(
-                $this->_action[self::WIDTH_KEY], 
+                $this->_action[self::WIDTH_KEY],
                 $this->_action[self::HEIGHT_KEY],
                 true
             );

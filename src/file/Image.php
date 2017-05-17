@@ -31,7 +31,7 @@ class Image implements File_Strategy
 
     /**
      * Creates an instance of the self and returns it
-     * 
+     *
      * @param string $image_path  The location of the image
      * @param array  $valid_types The image types to accept.
      * @param array  $actions     The actions to utilize.
@@ -47,7 +47,7 @@ class Image implements File_Strategy
 
     /**
      * Image Constructor.
-     * 
+     *
      * @param string $image_path  The location of the image
      * @param array  $valid_types The image types to accept.
      * @param array  $actions     The actions to utilize.
@@ -69,7 +69,7 @@ class Image implements File_Strategy
     /**
      * Goes through the list of actions and runs through each action to generate 
      * a file.
-     * 
+     *
      * @return array An array of arrays that contain the result_name and its path.
      */
     public function act() {
