@@ -1,7 +1,7 @@
 <?php
 /**
- * Contains the Action_Strategy interface used to define the action pipeline.
- * 
+ * Contains the ActionStrategy interface used to define the action pipeline.
+ *
  * @package Asset
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
  */
@@ -9,17 +9,17 @@
 namespace Asset;
 
 /**
- * Interface Action_Strategy.
+ * Interface ActionStrategy.
  *
  * Acts on a given file with given parameters.
- * 
+ *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
-interface Action_Strategy
+interface ActionStrategy
 {
 
     /**
-     * Action_Strategy constructor.
+     * ActionStrategy constructor.
      *
      * @param string $file_path The path to the file.
      * @param array  $action    The action itself, what to do on the file

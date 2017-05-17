@@ -9,7 +9,7 @@
 
 namespace Asset\Action;
 
-use Asset\Action_Strategy;
+use Asset\ActionStrategy;
 
 /**
  * Image class.
@@ -18,7 +18,7 @@ use Asset\Action_Strategy;
  *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
-class Image implements Action_Strategy
+class Image implements ActionStrategy
 {
 
     const MAX_COMPRESSION = 9;

@@ -10,7 +10,7 @@
 namespace Asset\File;
 
 use Asset\Action\Image as Image_Action;
-use Asset\File_Strategy;
+use Asset\FileStrategy;
 use Common\File;
 use Common\File\NotFoundException;
 use Common\File\NotSafeException;
@@ -23,7 +23,7 @@ use Common\File\NotValidException;
  *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
-class Image implements File_Strategy
+class Image implements FileStrategy
 {
 
     private $_path;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the File_Strategy interface used to create assets from a file.
+ * Contains the FileStrategy interface used to create assets from a file.
  *
  * @package Asset
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
@@ -9,17 +9,17 @@
 namespace Asset;
 
 /**
- * Interface File_Strategy.
+ * Interface FileStrategy.
  *
  * Creates assets from a the given file.
- * 
+ *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
-interface File_Strategy
+interface FileStrategy
 {
 
     /**
-     * File_Strategy constructor.
+     * FileStrategy constructor.
      *
      * @param string $file_path   The location of the file
      * @param array  $valid_types The file types to accept.
@@ -27,8 +27,8 @@ interface File_Strategy
      * @return Image              An instance of its self.
      */
     public static function forge(
-        $file_path = "", 
-        array $valid_types = [], 
+        $file_path = "",
+        array $valid_types = [],
         array $actions = []
     );
 
