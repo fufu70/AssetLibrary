@@ -181,7 +181,8 @@ class Image implements ActionStrategy
     /**
      * Auto orientate the image to the proper size.
      *
-     * Depending on the current rotation of the image, change the 
+     * Depending on the current rotation of the image, rotate and flip the image
+     * to orient it in a top left position.
      */
     private function _autorotate()
     {
