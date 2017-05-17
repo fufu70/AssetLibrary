@@ -100,7 +100,7 @@ class Image implements ActionStrategy
         // setup the basename
         $basename = explode('.', basename($this->_path))[0];
         $basename .= '-' . time(). '-' . rand(0, 1000);
-        $basename .= '-' . $this->_action[self::NAME_KEY] . '.png';
+        $basename .= '-' . $this->_action[self::NAME_KEY] . '.jpg';
 
         // setup path
         $path = self::ROOT_DIR . $basename;
@@ -143,7 +143,7 @@ class Image implements ActionStrategy
     public function act()
     {
         $this->_manipulate();
-        $this->_imagick_image->writeImage();
+        $this->_imagick_image->writeImage($this->_action_path);
 
         return [
             self::PATH_KEY => $this->_action_path,
@@ -173,9 +173,9 @@ class Image implements ActionStrategy
      */
     private function _format()
     {
-        $this->_imagick_image->stripImage(); // Get rid of all EXIF data
-        $this->_imagick_image->setImageFormat("png");
+        $this->_imagick_image->setImageCompression(\Imagick::COMPRESSION_JPEG);
         $this->_imagick_image->setImageCompressionQuality($this->_quality);
+        $this->_imagick_image->stripImage(); // Get rid of all EXIF data
     }
 
     /**
@@ -291,10 +291,11 @@ class Image implements ActionStrategy
      */
     private function _compress()
     {
+        $this->_imagick_image->writeImage($this->_action_path);
         clearstatcache();
         if (filesize($this->_action_path) > self::MAX_SIZE) {
-            $this->_quality -= 10;
-            if ($this->_quality > 10) {
+            $this->_quality -= 5;
+            if ($this->_quality > 1) {
                 $this->_manipulate();
             }
         }

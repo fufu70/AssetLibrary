@@ -111,7 +111,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         file_put_contents(
             $big_file, 
             file_get_contents(
-                "http://archive.teachfind.com/qcda/curriculum.qcda.gov.uk/uploads/A%26D%20level%207%205.1_tcm8-17553.png"
+                "https://upload.wikimedia.org/wikipedia/commons/2/2d/Snake_River_%285mb%29.jpg"
             )
         );
 
@@ -201,7 +201,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                 ],
                 [
                     "big_file" => 
-                        self::COMPARISON_DIRECTORY . "/big_file.png",
+                        self::COMPARISON_DIRECTORY . "/big_file.jpg",
                 ],
                 "" // I dont expect an exception
             ]
