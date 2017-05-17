@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contains the Image class 
+ * Contains the Image class
  *
  * @package Asset\Action
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
@@ -63,7 +63,7 @@ class Image implements ActionStrategy
      * @param  array  $action     The action itself, what to do on the image
      * @return Image              An instance of itself.
      */
-    public static function forge($image_path = "", array $action = []) 
+    public static function forge($image_path = "", array $action = [])
     {
         return new self($image_path, $action);
     }
@@ -74,7 +74,7 @@ class Image implements ActionStrategy
      * @param string $image_path The path to the image.
      * @param array  $action     The action itself, what to do on the image
      */
-    public function __construct($image_path = "", array $action = []) 
+    public function __construct($image_path = "", array $action = [])
     {
         $this->_path          = $image_path;
         $this->_action        = $action + self::$_default_action;
@@ -243,7 +243,7 @@ class Image implements ActionStrategy
     /**
      * Applies padding to an image to fill its width and height.
      *
-     * Creates a thumbnail image from the given 
+     * Creates a thumbnail image from the given
      */
     private function _contain()
     {

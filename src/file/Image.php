@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contains the Image class 
+ * Contains the Image class
  *
  * @package Asset\File
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
@@ -67,7 +67,7 @@ class Image implements FileStrategy
     }
 
     /**
-     * Goes through the list of actions and runs through each action to generate 
+     * Goes through the list of actions and runs through each action to generate
      * a file.
      *
      * @return array An array of arrays that contain the result_name and its path.
