@@ -111,7 +111,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         file_put_contents(
             $big_file, 
             file_get_contents(
-                "https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-497846.jpg"
+                "http://archive.teachfind.com/qcda/curriculum.qcda.gov.uk/uploads/A%26D%20level%207%205.1_tcm8-17553.png"
             )
         );
 
