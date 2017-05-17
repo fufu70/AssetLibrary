@@ -63,7 +63,8 @@ class Image implements ActionStrategy
      * @param  array  $action     The action itself, what to do on the image
      * @return Image              An instance of itself.
      */
-    public static function forge($image_path = "", array $action = []) {
+    public static function forge($image_path = "", array $action = []) 
+    {
         return new self($image_path, $action);
     }
 
@@ -73,7 +74,8 @@ class Image implements ActionStrategy
      * @param string $image_path The path to the image.
      * @param array  $action     The action itself, what to do on the image
      */
-    public function __construct($image_path = "", array $action = []) {
+    public function __construct($image_path = "", array $action = []) 
+    {
         $this->_path          = $image_path;
         $this->_action        = $action + self::$_default_action;
         $this->_action_path   = $this->_getActionPath();
@@ -93,7 +95,8 @@ class Image implements ActionStrategy
      *
      * @return string The location of the file where the actions are applied.
      */
-    private function _getActionPath() {
+    private function _getActionPath() 
+    {
         // setup the basename
         $basename = explode('.', basename($this->_path))[0];
         $basename .= '-' . time() . '-' . rand(0, 1000);
@@ -118,7 +121,8 @@ class Image implements ActionStrategy
      * When the width or height value is zero we assume that the original width
      * or height of the image should be used.
      */
-    private function _cleanWidthAndHeight() {
+    private function _cleanWidthAndHeight() 
+    {
         list($original_width, $original_height) = getimagesize($this->_path);
 
         $this->_action[self::WIDTH_KEY] = ($this->_action[self::WIDTH_KEY] !== 0) ?
@@ -136,8 +140,10 @@ class Image implements ActionStrategy
      * @return array Contains the location of the result of the action, its
      *               another image, and the name of the resulting action.
      */
-    public function act() {
+    public function act() 
+    {
         $this->_manipulate();
+        $this->_imagick_image->writeImage();
 
         return [
             self::PATH_KEY => $this->_action_path,
@@ -151,7 +157,8 @@ class Image implements ActionStrategy
      * Converts, Compresses, and Formats the image according to the action information
      * given about its conversion and compression / formatting after conversion.
      */
-    private function _manipulate() {
+    private function _manipulate() 
+    {
         $this->_format();
         $this->_autorotate();
         $this->_convert();
@@ -161,7 +168,8 @@ class Image implements ActionStrategy
     /**
      * Auto orientate the image to the proper size.
      */
-    private function _autorotate() {
+    private function _autorotate() 
+    {
         switch ($this->_imagick_image->getImageOrientation()) {
             case \Imagick::ORIENTATION_TOPLEFT:
                 break;
@@ -204,7 +212,8 @@ class Image implements ActionStrategy
      * given width and height, otherwise it covers the width and height with the image
      * and crops to that width and height.
      */
-    private function _convert() {
+    private function _convert() 
+    {
         if (!is_null($this->_action[self::KEEP_ASPECT_RATIO_KEY]) &&
             !is_null($this->_action[self::PADDING_KEY])) {
             $this->_contain();
@@ -220,7 +229,8 @@ class Image implements ActionStrategy
      * of the action. This allows the entire space of the width and hight to contain
      * the image, with no filler.
      */
-    private function _cover() {
+    private function _cover() 
+    {
         $this->_imagick_image->setImageBackgroundColor('transparent');
         $this->_imagick_image->cropThumbnailImage(
             $this->_action[self::WIDTH_KEY],
@@ -235,7 +245,8 @@ class Image implements ActionStrategy
      *
      * Creates a thumbnail image from the given 
      */
-    private function _contain() {
+    private function _contain() 
+    {
         $this->_imagick_image->setImageBackgroundColor('#000'); // black
 
         if (!$this->_action[self::KEEP_ASPECT_RATIO_KEY]) {
@@ -262,7 +273,8 @@ class Image implements ActionStrategy
      * Creates a png from the current image and tries to keep its current alpha
      * value.
      */
-    private function _format() {
+    private function _format() 
+    {
         $this->_imagick_image->stripImage(); // if you want to get rid of all EXIF data
         $this->_imagick_image->setImageFormat("png");
         $this->_imagick_image->setImageCompressionQuality($this->_quality);
@@ -275,7 +287,8 @@ class Image implements ActionStrategy
      * calls the Manipulate function again and reduces the quality to get a smaller
      * image.
      */
-    private function _compress() {
+    private function _compress() 
+    {
         clearstatcache();
         if (filesize($this->_action_path) > self::MAX_SIZE) {
             $this->_quality -= 10;

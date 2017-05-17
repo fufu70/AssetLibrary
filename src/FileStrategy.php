@@ -36,7 +36,7 @@ interface FileStrategy
     /**
      * Goes to act on the file to change it.
      *
-     * @return array An array of arrays that contain the result_name and 
+     * @return array An array of arrays that contain the result_name and
      *               its path.
      */
     public function act();

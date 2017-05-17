@@ -72,7 +72,8 @@ class Image implements FileStrategy
      *
      * @return array An array of arrays that contain the result_name and its path.
      */
-    public function act() {
+    public function act() 
+    {
         $image_results = [];
 
         foreach ($this->_actions as $action) {
