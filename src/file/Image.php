@@ -38,8 +38,8 @@ class Image implements FileStrategy
      * @return Image              An instance of its self.
      */
     public static function forge(
-        $image_path = "", 
-        array $valid_types = [], 
+        $image_path = "",
+        array $valid_types = [],
         array $actions = []
     ) {
         return new self($image_path, $valid_types, $actions);
@@ -56,8 +56,8 @@ class Image implements FileStrategy
      * @throws NotValidException
      */
     public function __construct(
-        $image_path = "", 
-        array $valid_types = [], 
+        $image_path = "",
+        array $valid_types = [],
         array $actions = []
     ) {
         File::usable($image_path, $valid_types); // does not throw an exception.
@@ -72,7 +72,7 @@ class Image implements FileStrategy
      *
      * @return array An array of arrays that contain the result_name and its path.
      */
-    public function act() 
+    public function act()
     {
         $image_results = [];
 
