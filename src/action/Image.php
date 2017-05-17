@@ -46,6 +46,7 @@ class Image implements Action_Strategy
     private $_action_path;
     private $_path;
     private $_quality;
+    private $_imagick_image;
 
     private static $_default_action = [
         self::NAME_KEY              => self::NAME_DEFAULT,
@@ -73,10 +74,11 @@ class Image implements Action_Strategy
      * @param array  $action     The action itself, what to do on the image
      */
     public function __construct($image_path = "", array $action = []) {
-        $this->_path        = $image_path;
-        $this->_action      = $action + self::$_default_action;
-        $this->_action_path = $this->_getActionPath();
-        $this->_quality     = self::MAX_QUALITY;
+        $this->_path          = $image_path;
+        $this->_action        = $action + self::$_default_action;
+        $this->_action_path   = $this->_getActionPath();
+        $this->_quality       = self::MAX_QUALITY;
+        $this->_imagick_image = new \Imagick($this->_path);
 
         $this->_cleanWidthAndHeight();
     }
@@ -150,9 +152,48 @@ class Image implements Action_Strategy
      * given about its conversion and compression / formatting after conversion.
      */
     private function _manipulate() {
-        $this->_convert();
         $this->_format();
+        $this->_autorotate();
+        $this->_convert();
         $this->_compress();
+    }
+
+    /**
+     * Auto orientate the image to the proper size.
+     */
+    private function _autorotate() {
+        switch ($this->_imagick_image->getImageOrientation())  {
+            case \Imagick::ORIENTATION_TOPLEFT:
+                break;
+            case \Imagick::ORIENTATION_TOPRIGHT:
+                $this->_imagick_image->flopImage();
+                break;
+            case \Imagick::ORIENTATION_BOTTOMRIGHT:
+                $this->_imagick_image->rotateImage("#000", 180);
+                break;
+            case \Imagick::ORIENTATION_BOTTOMLEFT:
+                $this->_imagick_image->flopImage();
+                $this->_imagick_image->rotateImage("#000", 180);
+                break;
+            case \Imagick::ORIENTATION_LEFTTOP:
+                $this->_imagick_image->flopImage();
+                $this->_imagick_image->rotateImage("#000", 270);
+                break;
+            case \Imagick::ORIENTATION_RIGHTTOP:
+                $this->_imagick_image->rotateImage("#000", 90);
+                break;
+            case \Imagick::ORIENTATION_RIGHTBOTTOM:
+                $this->_imagick_image->flopImage();
+                $this->_imagick_image->rotateImage("#000", 90);
+                break;
+            case \Imagick::ORIENTATION_LEFTBOTTOM:
+                $this->_imagick_image->rotateImage("#000", 270);
+                break;
+            default: // Invalid orientation
+                break;
+        }
+
+        $this->_imagick_image->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
     }
 
     /**
@@ -180,14 +221,13 @@ class Image implements Action_Strategy
      * the image, with no filler.
      */
     private function _cover() {
-        $imagick = new \Imagick($this->_path);
-        $imagick->setImageBackgroundColor('transparent');
-        $imagick->cropThumbnailImage(
+        $this->_imagick_image->setImageBackgroundColor('transparent');
+        $this->_imagick_image->cropThumbnailImage(
             $this->_action[self::WIDTH_KEY], 
             $this->_action[self::HEIGHT_KEY]
         );
 
-        $imagick->writeImage($this->_action_path);
+        $this->_imagick_image->writeImage($this->_action_path);
     }
 
     /**
@@ -196,25 +236,24 @@ class Image implements Action_Strategy
      * Creates a thumbnail image from the given 
      */
     private function _contain() {
-        $imagick = new \Imagick($this->_path);
-        $imagick->setImageBackgroundColor('#000'); // black
+        $this->_imagick_image->setImageBackgroundColor('#000'); // black
 
         if (!$this->_action[self::KEEP_ASPECT_RATIO_KEY]) {
-            $imagick->thumbnailImage(
+            $this->_imagick_image->thumbnailImage(
                 $this->_action[self::WIDTH_KEY], 
                 $this->_action[self::HEIGHT_KEY],
                 true, 
                 $this->_action[self::PADDING_KEY]
             );
         } else {
-            $imagick->scaleImage(
+            $this->_imagick_image->scaleImage(
                 $this->_action[self::WIDTH_KEY], 
                 $this->_action[self::HEIGHT_KEY],
                 true
             );
         }
 
-        $imagick->writeImage($this->_action_path);
+        $this->_imagick_image->writeImage($this->_action_path);
     }
 
     /**
@@ -224,35 +263,9 @@ class Image implements Action_Strategy
      * value.
      */
     private function _format() {
-        $src = imagecreatefrompng($this->_action_path);
-
-        imagealphablending($src, true);
-        imagesavealpha($src, true);
-        imagepng($src, $this->_action_path, $this->_getCompressionLevel());
-    }
-
-    /**
-     * Returns the compression level for the desired quality.
-     *
-     * Converts the quality level from a range of 100 - 0 to a compression level
-     * of 0 - 9. "How much" do we want to compress the image based off of the current
-     * quality; the higher the quality, the lower the compression.
-     *
-     * @return int The compression level from the current quality
-     */
-    private function _getCompressionLevel() {
-        $compression = self::MIN_COMPRESSION;
-
-        $quality_rev = 100 - $this->_quality;
-        if ($quality_rev >= 10) {
-            $compression = intval($quality_rev / 10);
-        }
-
-        if ($compression > self::MAX_COMPRESSION) {
-            $compression = self::MAX_COMPRESSION;
-        }
-
-        return $compression;
+        $this->_imagick_image->stripImage(); // if you want to get rid of all EXIF data
+        $this->_imagick_image->setImageFormat("png");
+        $this->_imagick_image->setImageCompressionQuality($this->_quality);
     }
 
     /**
