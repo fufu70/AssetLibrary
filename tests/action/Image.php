@@ -79,7 +79,7 @@ class Image_Test extends \PHPUnit_Framework_TestCase
      */
 
     /**
-     * Creates files with valid types and invalid types.
+     * Test data for the autorotate function.
      * 
      * @return array An array of Orientation
      */
@@ -108,17 +108,11 @@ class Image_Test extends \PHPUnit_Framework_TestCase
      */
 
     /**
-     * Tests the forge.
+     * Tests the autorotate function.
      *
      * @dataProvider input_autorotate
      *
-     * @param  string  $path              The file path.
-     * @param  array   $valid_types       The types to validate against.
-     * @param  array   $action            The actions to pass.
-     * @param  array   expected_results   The key, the action name, and a file of
-     *                                    the expected action.
-     * @param  string  $exception_message The expected exception message if an
-     *                                    excption is thrown.
+     * @param  string  $imagick_orientation The original orientation of the image.
      */
     public function test_autorotate(
         $imagick_orientation = \Imagick::ORIENTATION_TOPLEFT
