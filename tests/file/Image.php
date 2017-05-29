@@ -95,6 +95,9 @@ class Image_Test extends \PHPUnit_Framework_TestCase
         require_once(__DIR__ . "/../../src/FileStrategy.php");
         require_once(__DIR__ . "/../../src/action/Image.php");
         require_once(__DIR__ . "/../../src/file/Image.php");
+        require_once(__DIR__ . "/../../vendor/fufu70/file-class/src/file/NotSafeException.php");
+        require_once(__DIR__ . "/../../vendor/fufu70/file-class/src/file/NotFoundException.php");
+        require_once(__DIR__ . "/../../vendor/fufu70/file-class/src/file/NotValidException.php");
 
         $this->createDirectory(self::TEST_DIRECTORY);
 
