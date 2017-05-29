@@ -23,7 +23,7 @@ use Common\Reflection;
 class Image_Test extends \PHPUnit_Framework_TestCase
 {
 
-    const TEST_DIRECTORY = 'Asset_Image_Test';
+    const TEST_DIRECTORY = 'Asset_Image_Test/';
 
     /**
      * Sets up a basic environment with the testing directory

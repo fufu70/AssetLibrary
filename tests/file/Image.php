@@ -91,6 +91,11 @@ class Image_Test extends \PHPUnit_Framework_TestCase
      */
     public function input_forge()
     {
+        require_once(__DIR__ . "/../../src/ActionStrategy.php");
+        require_once(__DIR__ . "/../../src/FileStrategy.php");
+        require_once(__DIR__ . "/../../src/action/Image.php");
+        require_once(__DIR__ . "/../../src/file/Image.php");
+
         $this->createDirectory(self::TEST_DIRECTORY);
 
         $default_image_file = self::TEST_DIRECTORY . "/usable.png";
