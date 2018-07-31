@@ -20,7 +20,6 @@ use Asset\ActionStrategy;
  */
 class Image implements ActionStrategy
 {
-
     const MAX_COMPRESSION = 9;
     const MIN_COMPRESSION = 0;
     const ROOT_DIR        = 'tmp_action/';

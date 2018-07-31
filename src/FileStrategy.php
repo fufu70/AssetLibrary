@@ -17,7 +17,6 @@ namespace Asset;
  */
 interface FileStrategy
 {
-
     /**
      * FileStrategy constructor.
      *
@@ -31,7 +30,6 @@ interface FileStrategy
         array $valid_types = [],
         array $actions = []
     );
-
 
     /**
      * Goes to act on the file to change it.

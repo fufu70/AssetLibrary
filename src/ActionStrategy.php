@@ -17,7 +17,6 @@ namespace Asset;
  */
 interface ActionStrategy
 {
-
     /**
      * ActionStrategy constructor.
      *
@@ -25,7 +24,6 @@ interface ActionStrategy
      * @param array  $action    The action itself, what to do on the file
      */
     public function __construct($file_path = "", array $action = []);
-
 
     /**
      * Goes to act on the file to change it.
