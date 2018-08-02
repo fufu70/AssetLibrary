@@ -152,67 +152,67 @@ class Image_Test extends \PHPUnit_Framework_TestCase
                 [],
                 NotValidException::FILE_NOT_VALID
             ],
-            [
-                $default_image_file,
-                [],
-                [
-                    [
-                        Action_Image::NAME_KEY   => "default_image",
-                        Action_Image::WIDTH_KEY  => 1920,
-                        Action_Image::HEIGHT_KEY => 1080
-                    ],
-                    [
-                        Action_Image::NAME_KEY              => "default_image_contain",
-                        Action_Image::WIDTH_KEY             => 1920,
-                        Action_Image::HEIGHT_KEY            => 1080,
-                        Action_Image::KEEP_ASPECT_RATIO_KEY => false,
-                        Action_Image::PADDING_KEY           => true
-                    ]
-                ],
-                [
-                    "default_image"                     => 
-                        self::COMPARISON_DIRECTORY . "/default_image.png",
-                    "default_image_contain"             =>
-                        self::COMPARISON_DIRECTORY . "/default_image_contain.png",
-                    "default_image_contain_aspect_true" =>
-                        self::COMPARISON_DIRECTORY . "/default_image_contain_aspect_true.png",
-                ],
-                "" // I dont expect an exception
-            ],
-            [
-                $contain_aspect_true_file,
-                [],
-                [
-                    [
-                        Action_Image::NAME_KEY              =>  "contain_aspect_true",
-                        Action_Image::WIDTH_KEY             => 1920,
-                        Action_Image::HEIGHT_KEY            => 1080,
-                        Action_Image::KEEP_ASPECT_RATIO_KEY => true
-                    ]
-                ],
-                [
-                    "contain_aspect_true" =>
-                        self::COMPARISON_DIRECTORY . "/contain_aspect_true.png",
-                ],
-                "" // I dont expect an exception
-            ],
-            [
+            // [
+            //     $default_image_file,
+            //     [],
+            //     [
+            //         [
+            //             Action_Image::NAME_KEY   => "default_image",
+            //             Action_Image::WIDTH_KEY  => 1920,
+            //             Action_Image::HEIGHT_KEY => 1080
+            //         ],
+            //         [
+            //             Action_Image::NAME_KEY              => "default_image_contain",
+            //             Action_Image::WIDTH_KEY             => 1920,
+            //             Action_Image::HEIGHT_KEY            => 1080,
+            //             Action_Image::KEEP_ASPECT_RATIO_KEY => false,
+            //             Action_Image::PADDING_KEY           => true
+            //         ]
+            //     ],
+            //     [
+            //         "default_image"                     => 
+            //             self::COMPARISON_DIRECTORY . "/default_image.png",
+            //         "default_image_contain"             =>
+            //             self::COMPARISON_DIRECTORY . "/default_image_contain.png",
+            //         "default_image_contain_aspect_true" =>
+            //             self::COMPARISON_DIRECTORY . "/default_image_contain_aspect_true.png",
+            //     ],
+            //     "" // I dont expect an exception
+            // ],
+            // [
+            //     $contain_aspect_true_file,
+            //     [],
+            //     [
+            //         [
+            //             Action_Image::NAME_KEY              =>  "contain_aspect_true",
+            //             Action_Image::WIDTH_KEY             => 1920,
+            //             Action_Image::HEIGHT_KEY            => 1080,
+            //             Action_Image::KEEP_ASPECT_RATIO_KEY => true
+            //         ]
+            //     ],
+            //     [
+            //         "contain_aspect_true" =>
+            //             self::COMPARISON_DIRECTORY . "/contain_aspect_true.png",
+            //     ],
+            //     "" // I dont expect an exception
+            // ],
+            // [
 
-                $big_file,
-                [],
-                [
-                    [
-                        Action_Image::NAME_KEY   => "big_file",
-                        Action_Image::WIDTH_KEY  => 0,
-                        Action_Image::HEIGHT_KEY => 0
-                    ]
-                ],
-                [
-                    "big_file" => 
-                        self::COMPARISON_DIRECTORY . "/big_file.jpg",
-                ],
-                "" // I dont expect an exception
-            ]
+            //     $big_file,
+            //     [],
+            //     [
+            //         [
+            //             Action_Image::NAME_KEY   => "big_file",
+            //             Action_Image::WIDTH_KEY  => 0,
+            //             Action_Image::HEIGHT_KEY => 0
+            //         ]
+            //     ],
+            //     [
+            //         "big_file" => 
+            //             self::COMPARISON_DIRECTORY . "/big_file.jpg",
+            //     ],
+            //     "" // I dont expect an exception
+            // ]
         ];
     }
 
