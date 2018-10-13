@@ -92,7 +92,7 @@ class Document implements ActionStrategy
 
     /**
      * Manipulate the File and store it as a zip.
-     * 
+     *
      * @return array Contains the location of the result of the action, its
      *               a zip file, and the name of the resulting action.
      */
@@ -108,16 +108,16 @@ class Document implements ActionStrategy
 
     /**
      * Zips up the given file in the _action_path.
-     * 
+     *
      * Zips up the the current file by opening up a ziparchive, adding the
      * file to the archive and then closing the zip.
-     * 
+     *
      * @return bool If the zip was produced.
      */
-    private function zip() 
+    private function zip()
     {
         $zip = new \ZipArchive();
-        if($zip->open($this->_action_path, \ZipArchive::CREATE) !== true) {
+        if ($zip->open($this->_action_path, \ZipArchive::CREATE) !== true) {
             return false;
         }
 

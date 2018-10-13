@@ -37,8 +37,7 @@ class Document implements FileStrategy
         $file_path = "",
         array $valid_types = [],
         array $actions = []
-    )
-    {
+    ) {
         return new self($file_path, $valid_types, $actions);
     }
 
